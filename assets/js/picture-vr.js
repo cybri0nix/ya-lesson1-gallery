@@ -80,6 +80,15 @@
 		}
 	}
 
+	PictureVwr.prototype.keydown = function(e){
+		if (27 === e.keyCode )
+		{
+			if (this.image){
+				this.close();
+			}
+		}
+	}
+
 
 	/**
 	 * Private methods
@@ -88,11 +97,13 @@
 	
 	function _bindEvents(){
 
-		$(this.image).on('load', this.imageLoaded.bind(this));
-		$(this.image).on('click', this.close.bind(this));
+		$(this.image).on('load.picture-vwr', this.imageLoaded.bind(this));
+		$(this.image).on('click.picture-vwr', this.close.bind(this));
 		$(window).on('resize.picture-vwr', this.scaleImage.bind(this));
 		//$(window).on('touchstart', this.touchstart.bind(this));
-		$(window).on('touchmove', this.touchstart.bind(this));
+		$(window).on('touchmove.picture-vwr', this.touchstart.bind(this));
+		
+		$(window).on('keydown.picture-vwr', this.keydown.bind(this));
 	}
 
 	function _build(){
