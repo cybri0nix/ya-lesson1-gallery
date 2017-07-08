@@ -1,5 +1,9 @@
 (function(window, undefined)
 {
+	var isTouchDevice = !!('ontouchstart' in window);
+	var iTouchStartY = 0;
+
+
 	this.PictureVwr = function(params){
 		this.defaultParams = {
 			thumb: '',
@@ -67,6 +71,13 @@
 	}
 
 
+	PictureVwr.prototype.touchend = function() {
+		if (this.image){
+			this.close();
+		}
+	}
+
+
 	/**
 	 * Private methods
 	 */
@@ -76,8 +87,9 @@
 
 		$(this.image).on('load', this.imageLoaded.bind(this));
 		$(this.image).on('click', this.close.bind(this));
-
 		$(window).on('resize.picture-vwr', this.scaleImage.bind(this));
+		$(window).on('touchend', this.touchend.bind(this));
+
 
 	}
 
