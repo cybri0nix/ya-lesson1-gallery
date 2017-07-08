@@ -9,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   background: #ccc; }
-
+ 
 .page {
   min-height: 100%;
   margin-bottom: -41px; }
@@ -17,7 +17,6 @@ body {
 .footer-space {
   height: 40px; }
 
-/* for sticky footer. ╨з╤В╨╛╨▒╤Л ╤А╨░╨▒╨╛╤В╨░╨╗╨╛ 100% ╨╜╨░ IE8+ */
 .album__title-wrap {
   padding: 3vh 1em;
   background: #164b8c; }
