@@ -53,7 +53,7 @@ body{
 .album{}
 
 .album__title-wrap{
-    padding: 3vh 1em;
+    padding: 10vh 1em;
     background: #164b8c;
 }
 .album__title-text{
@@ -77,7 +77,7 @@ body{
 
 
 .album__description-wrap{
-    padding: 2vh 2vh;
+    padding: 10vh 1rem;
     background: #000;
 }
 .album__description-text{
@@ -128,7 +128,7 @@ body{
     -webkit-flex-grow: 1;
     flex-grow: 1;
     
-    min-height: 190px;
+    //min-height: 190px;
     height: 50vh;
     margin: 2px;
     
@@ -332,14 +332,20 @@ body{
         @include transition(none);
     }
 
+    .album-images__item{
+        -webkit-flex-basis: 33%;
+        flex-basis: 33%;
+    }
     .album-images__item:nth-child(7n+1){
-        flex-basis: 25%;
+        -webkit-flex-basis: 33%;
+        flex-basis: 33%;
         max-width: 100%;
     }
 
     .album-images__item:nth-child(7n+4) // each 4 from each 7
     {
-        flex-basis: 25%;
+        -webkit-flex-basis: 33%;
+        flex-basis: 33%;
         max-width: 100%;
     }
 
@@ -350,7 +356,9 @@ body{
     .album__description-text{ 
         font-size: 1rem;
     }
+}
 
+@media (max-width: 480px){
     .album-images{
         display: block;
     }

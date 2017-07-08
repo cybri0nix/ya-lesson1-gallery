@@ -9,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   background: #ccc; }
- 
+
 .page {
   min-height: 100%;
   margin-bottom: -41px; }
@@ -17,8 +17,9 @@ body {
 .footer-space {
   height: 40px; }
 
+/* for sticky footer. ╨з╤В╨╛╨▒╤Л ╤А╨░╨▒╨╛╤В╨░╨╗╨╛ 100% ╨╜╨░ IE8+ */
 .album__title-wrap {
-  padding: 3vh 1em;
+  padding: 10vh 1em;
   background: #164b8c; }
 
 .album__title-text {
@@ -35,7 +36,7 @@ body {
   .album__title-text {
     font-size: 4vw; } }
 .album__description-wrap {
-  padding: 2vh 2vh;
+  padding: 10vh 1rem;
   background: #000; }
 
 .album__description-text {
@@ -75,7 +76,6 @@ body {
   flex-basis: 25%;
   -webkit-flex-grow: 1;
   flex-grow: 1;
-  min-height: 190px;
   height: 50vh;
   margin: 2px;
   cursor: pointer;
@@ -238,17 +238,23 @@ body {
     -webkit-transition: none;
     transition: none; }
 
+  .album-images__item {
+    -webkit-flex-basis: 33%;
+    flex-basis: 33%; }
+
   .album-images__item:nth-child(7n+1) {
-    flex-basis: 25%;
+    -webkit-flex-basis: 33%;
+    flex-basis: 33%;
     max-width: 100%; }
 
   .album-images__item:nth-child(7n+4) {
-    flex-basis: 25%;
+    -webkit-flex-basis: 33%;
+    flex-basis: 33%;
     max-width: 100%; } }
 @media (max-width: 740px) {
   .album__description-text {
-    font-size: 1rem; }
-
+    font-size: 1rem; } }
+@media (max-width: 480px) {
   .album-images {
     display: block; } }
 @media (max-width: 400px) {
