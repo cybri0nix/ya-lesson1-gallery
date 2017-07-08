@@ -38,6 +38,7 @@
 		PictureVwr.prototype.imageLoaded.call(this);
 	}
 
+
 	PictureVwr.prototype.close = function(params){
 		$(this.modalLayout).removeClass('modal-picture-viewer_visible');
 
@@ -47,9 +48,11 @@
 		$('body').css({ overflow:'auto' });
 	}
 
+
 	PictureVwr.prototype.imageLoaded = function(){
 		PictureVwr.prototype.scaleImage.call(this);
 	}
+
 
 	PictureVwr.prototype.scaleImage = function(){
 		var imgWidth = this.image.naturalWidth,
@@ -88,7 +91,7 @@
 		$(this.image).on('load', this.imageLoaded.bind(this));
 		$(this.image).on('click', this.close.bind(this));
 		$(window).on('resize.picture-vwr', this.scaleImage.bind(this));
-		$(window).on('touchstart', this.touchstart.bind(this));
+		//$(window).on('touchstart', this.touchstart.bind(this));
 		$(window).on('touchmove', this.touchstart.bind(this));
 	}
 
