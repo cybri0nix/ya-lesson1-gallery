@@ -71,7 +71,7 @@
 	}
 
 
-	PictureVwr.prototype.touchend = function() {
+	PictureVwr.prototype.touchstart = function() {
 		if (this.image){
 			this.close();
 		}
@@ -88,7 +88,7 @@
 		$(this.image).on('load', this.imageLoaded.bind(this));
 		$(this.image).on('click', this.close.bind(this));
 		$(window).on('resize.picture-vwr', this.scaleImage.bind(this));
-		$(window).on('touchend', this.touchend.bind(this));
+		$(window).on('touchstart', this.touchstart.bind(this));
 
 
 	}
