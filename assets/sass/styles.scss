@@ -194,16 +194,12 @@ body{
 }
 
 
-
-
-
 /**
  *  Modal-picture-viewer
  */
 
 .modal-picture-viewer{
     display: none;
-
 
     -webkit-flex-direction: column; /* Safari 6.1+ */
     flex-direction: column;
@@ -321,7 +317,7 @@ body{
     }
 }
 
-@media (max-width: 920px) 
+@media (max-width: 980px) 
 {
     .album-images__item-pic{
         -webkit-filter: none; 
@@ -331,13 +327,13 @@ body{
     }
 
     .album-images__item:nth-child(7n+1){
-        flex-basis: auto;
+        flex-basis: 25%;
         max-width: 100%;
     }
 
     .album-images__item:nth-child(7n+4) // each 4 from each 7
     {
-        flex-basis: auto;
+        flex-basis: 25%;
         max-width: 100%;
     }
 

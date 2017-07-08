@@ -140,6 +140,26 @@ $(function()
 			title: image.attr('alt')
 		});
 	});
+
+	if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+
+		$('body').addClass('ie');
+
+		albumItems.children('.album-images__item-pic').hide();
+
+		albumItems.each(function()
+		{
+			var item = $(this);
+			item.css({ 
+				backgroundImage: 'url(' + item.find('img').attr('src') + ')', 
+				backgroundSize:'cover',
+				backgroundPosition: 'center center'
+			});
+		});
+	}
+	
+
+
 });
 </script>
 </body>
