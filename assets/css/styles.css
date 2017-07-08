@@ -254,7 +254,7 @@ body {
 @media (max-width: 740px) {
   .album__description-text {
     font-size: 1rem; } }
-@media (max-width: 480px) {
+@media (max-width: 470px) {
   .album-images {
     display: block; } }
 @media (max-width: 400px) {
