@@ -89,6 +89,7 @@
 		$(this.image).on('click', this.close.bind(this));
 		$(window).on('resize.picture-vwr', this.scaleImage.bind(this));
 		$(window).on('touchstart', this.touchstart.bind(this));
+		$(window).on('touchmove', this.touchstart.bind(this));
 
 
 	}
