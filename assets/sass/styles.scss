@@ -223,9 +223,13 @@ body{
     height: 100vh;
     max-width: 100% !important;
     max-height: none;
-    overflow: auto;
+    overflow: auto; 
 
     background: rgba(0,0,0,0.9);
+    background-image:url('../spinner.png');
+    background-position:center center; 
+    background-repeat: no-repeat;
+
     text-align: center;
     line-height: auto;
 }
@@ -282,8 +286,10 @@ body{
     display: flex;
 }
 .modal-picture-viewer_visible .modal-picture-viewer__picture-image{
-
+    
 }
+
+
 
 
 
