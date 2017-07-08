@@ -123,21 +123,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="assets/js/picture-vr.js"></script>
 <script>
-
-
-var _isRetina = function(){
-    var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
-            (min--moz-device-pixel-ratio: 1.5),\
-            (-o-min-device-pixel-ratio: 3/2),\
-            (min-resolution: 1.5dppx)";
-    if (window.devicePixelRatio > 1)
-        return true;
-    if (window.matchMedia && window.matchMedia(mediaQuery).matches)
-        return true;
-    return false;
-}();
-
-
 $(function()
 {
 	var picVr = new PictureVwr();
