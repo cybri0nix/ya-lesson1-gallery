@@ -28,7 +28,7 @@
     height: 100vh;
     max-width: 100% !important;
     max-height: none;
-    overflow: auto; 
+    overflow: hidden; 
 
     background-color: rgba(0,0,0,0.9);
 
