@@ -1,8 +1,9 @@
 (function(window, undefined)
 {
-	var _isTouchDevice = !!('ontouchstart' in window);
-	var _body = document.getElementsByTagName('body')[0];
-	var _bodyPrevWidth = 0;
+	var _isTouchDevice = !!('ontouchstart' in window),
+		_body = document.getElementsByTagName('body')[0],
+		_bodyPrevWidth = 0,
+		_imagesLoaded = [];
 
 	this.PictureVwr = function(params){
 		this.defaultParams = {
@@ -39,7 +40,10 @@
 		_body.style.width = _bodyPrevWidth+'px';
 
 		_addClass(this.modalLayout, 'modal-picture-viewer_visible');
-		_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
+
+		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
+			_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
+		}
 
 		PictureVwr.prototype.onImageLoadedHandler.call(this);
 	}
@@ -48,8 +52,7 @@
 	PictureVwr.prototype.close = function(params) {
 		_removeClass(this.modalLayout, 'modal-picture-viewer_visible');
 		_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
-
-		_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture-wrap_visible');
+		_removeClass(this.image, 'modal-picture-viewer__picture-image_visible');
 
 		this.image.removeAttribute('src');
 		this.image.removeAttribute('style');
@@ -85,10 +88,15 @@
 
 
 	PictureVwr.prototype.onImageLoadedHandler = function(){
-		setTimeout(function() {
+		
+		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
 			_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
-			_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture-wrap_visible');
-		}.bind(this), 200);
+			_imagesLoaded.push(this.image.src);
+		}
+
+		setTimeout(function() {
+			_addClass(this.image, 'modal-picture-viewer__picture-image_visible');
+		}.bind(this), 100);
 		PictureVwr.prototype.scaleImage.call(this);
 	}
 
