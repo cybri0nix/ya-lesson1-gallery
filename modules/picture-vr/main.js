@@ -91,7 +91,9 @@
 
 
 	PictureVwr.prototype.onImageLoadedHandler = function() {
-
+		if (-1 === this.modalLayout.className.split(' ').indexOf('modal-picture-viewer_visible')) {
+			return false;
+		}
 		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
 			_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
 			_imagesLoaded.push(this.image.src);
