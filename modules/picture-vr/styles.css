@@ -95,6 +95,11 @@
     display: block;
     cursor:zoom-out;
     
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     opacity: 0;
     -ms-transform: scale(0.5); /* IE 9 */
     -webkit-transform: scale(0.5); 
