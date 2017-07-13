@@ -19,7 +19,9 @@
 		this.image = null;
 	}
 
+
 	PictureVwr.prototype.destroy = function(){}
+
 
 	PictureVwr.prototype.view = function(params){
 		// TODO: validate/extend default params
@@ -43,9 +45,10 @@
 
 		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
 			_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
+			console.log('added');
 		}
 
-		PictureVwr.prototype.onImageLoadedHandler.call(this);
+		PictureVwr.prototype.onResizeHandler.call(this);
 	}
 
 
@@ -87,8 +90,8 @@
 	}
 
 
-	PictureVwr.prototype.onImageLoadedHandler = function(){
-		
+	PictureVwr.prototype.onImageLoadedHandler = function() {
+
 		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
 			_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
 			_imagesLoaded.push(this.image.src);
@@ -145,7 +148,7 @@
 
 	function _bindEvents(){
 		this.image.addEventListener('load', this.onImageLoadedHandler.bind(this));
-		this.image.addEventListener('click', this.close.bind(this));
+		this.imagePlaceholder.addEventListener('click', this.close.bind(this));
 		window.addEventListener('resize', this.onResizeHandler.bind(this));
 		window.addEventListener('touchmove', this.onTouchstartHandler.bind(this));
 		window.addEventListener('keydown', this.onKeydownHandler.bind(this));
