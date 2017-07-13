@@ -45,7 +45,6 @@
 
 		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
 			_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
-			console.log('added');
 		}
 
 		PictureVwr.prototype.onResizeHandler.call(this);
@@ -151,7 +150,7 @@
 
 	function _bindEvents(){
 		this.image.addEventListener('load', this.onImageLoadedHandler.bind(this));
-		this.imagePlaceholder.addEventListener('click', this.close.bind(this));
+		this.modalLayout.addEventListener('click', this.close.bind(this));
 		window.addEventListener('resize', this.onResizeHandler.bind(this));
 		window.addEventListener('touchmove', this.onTouchstartHandler.bind(this));
 		window.addEventListener('keydown', this.onKeydownHandler.bind(this));
