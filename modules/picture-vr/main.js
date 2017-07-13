@@ -32,7 +32,7 @@
 			_bindEvents.call(this);
 		}
 
-		_body.style.overflow = 'auto';
+		_body.style.overflow = 'hidden';
 
 		_addClass(this.modalLayout, 'modal-picture-viewer_visible');
 
