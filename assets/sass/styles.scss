@@ -93,9 +93,6 @@ body{
 }
 
 
-
-
-
 .album-images{
     display: -webkit-flex; /* Safari */
     -webkit-flex-wrap: wrap; /* Safari 6.1+ */
@@ -140,10 +137,6 @@ body{
     @include transition(opacity 0.2s);
 }
 
-// каждая первая из 7 картинок стремится  - 550px
-// каждая 4 - 460px, 
-// все остальные картинки распределяются по оставшейся ширине
-// https://css-tricks.com/how-nth-child-works/
 .album-images__item:nth-child(7n+1) // each first from each 7
 {
     -webkit-flex-basis: 100%;
@@ -183,6 +176,8 @@ body{
 
     -webkit-filter: brightness(70%); /* Safari 6.0 - 9.0 */
     filter: brightness(70%);
+
+    
 
     @include transition(filter 0.8s);
 }

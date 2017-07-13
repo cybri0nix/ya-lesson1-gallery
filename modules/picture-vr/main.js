@@ -2,6 +2,7 @@
 {
 	var _isTouchDevice = !!('ontouchstart' in window);
 	var _body = document.getElementsByTagName('body')[0];
+	var _bodyPrevWidth = 0;
 
 	this.PictureVwr = function(params){
 		this.defaultParams = {
@@ -23,6 +24,8 @@
 		// TODO: validate/extend default params
 		this.params = params;
 
+		_bodyPrevWidth = _body.clientWidth;
+
 		if (this.modalLayout) {
 	    	this.image.src = this.params.src;
 	    	this.image.alt = this.params.title;
@@ -33,27 +36,29 @@
 		}
 
 		_body.style.overflow = 'hidden';
+		console.log(_body.style.width);
+		_body.style.width = _bodyPrevWidth+'px';
+		console.log(_bodyPrevWidth);
 
 		_addClass(this.modalLayout, 'modal-picture-viewer_visible');
+		_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
 
-		PictureVwr.prototype.imageLoaded.call(this);
+		PictureVwr.prototype.onImageLoadedHandler.call(this);
 	}
 
 
-	PictureVwr.prototype.close = function(params){
+	PictureVwr.prototype.close = function(params) {
 		_removeClass(this.modalLayout, 'modal-picture-viewer_visible');
+		_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
+
+		_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture-wrap_visible');
 
 		this.image.removeAttribute('src');
 		this.image.removeAttribute('style');
 
 		_body.style.overflow = 'auto';
+		_body.style.width = 'auto';
 	}
-
-
-	PictureVwr.prototype.imageLoaded = function(){
-		PictureVwr.prototype.scaleImage.call(this);
-	}
-
 
 	PictureVwr.prototype.scaleImage = function(){
 		var imgWidth = this.image.naturalWidth,
@@ -71,7 +76,6 @@
 		}
 	}
 
-
 	PictureVwr.prototype.getWindowWidth = function(){
 		return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 	}
@@ -82,14 +86,25 @@
 	}
 
 
-	PictureVwr.prototype.touchstart = function() {
+	PictureVwr.prototype.onImageLoadedHandler = function(){
+		setTimeout(function() {
+			_removeClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
+			_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture-wrap_visible');
+		}.bind(this), 200);
+		PictureVwr.prototype.scaleImage.call(this);
+	}
+
+	PictureVwr.prototype.onResizeHandler = function() {
+		this.scaleImage();
+	}
+
+	PictureVwr.prototype.onTouchstartHandler = function() {
 		if (this.image){
 			this.close();
 		}
 	}
 
-
-	PictureVwr.prototype.keydown = function(e){
+	PictureVwr.prototype.onKeydownHandler = function(e){
 		if (27 === e.keyCode )
 		{
 			if (this.image){
@@ -123,11 +138,11 @@
 	}
 
 	function _bindEvents(){
-		this.image.addEventListener('load', this.imageLoaded.bind(this));
+		this.image.addEventListener('load', this.onImageLoadedHandler.bind(this));
 		this.image.addEventListener('click', this.close.bind(this));
-		window.addEventListener('resize', this.scaleImage.bind(this));
-		window.addEventListener('touchmove', this.touchstart.bind(this));
-		window.addEventListener('keydown', this.keydown.bind(this));
+		window.addEventListener('resize', this.onResizeHandler.bind(this));
+		window.addEventListener('touchmove', this.onTouchstartHandler.bind(this));
+		window.addEventListener('keydown', this.onKeydownHandler.bind(this));
 	}
 
 	function _build(){
