@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -120,47 +120,43 @@
 		</div>
 	</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="assets/js/picture-vr.js"></script>
 <script>
-$(function()
-{
-	var picVr = new PictureVwr();
+document.addEventListener('DOMContentLoaded', initPage);
 
-	var albumWidget = $('#albumWidget'),
-	
-	albumItems = albumWidget.children('.album-images__item');
+function initPage() {
+	window.picVr = new PictureVwr();
+	var albumWidget = document.getElementById('albumWidget');
 
-	albumItems.on('click', function(e) {
-		var image = $(this).find('.album-images__item-pic');
-
-		picVr.view({
-			thumb: image.attr('src'), 
-			src: image.data('fullPic'),
-			title: image.attr('alt')
-		});
+	albumWidget.addEventListener('click', function(e) {
+		switch (e.target.className)
+		{
+			case 'album-images__item-pic':
+				var image = e.target;
+				picVr.view({
+					thumb: image.getAttribute('src'), 
+					src: image.getAttribute('data-full-pic'),
+					title: image.getAttribute('alt')
+				});
+				break;
+		}
 	});
 
+	// if ie
 	if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 
-		$('body').addClass('ie');
-
-		albumItems.children('.album-images__item-pic').hide();
-
-		albumItems.each(function()
-		{
-			var item = $(this);
-			item.css({ 
-				backgroundImage: 'url(' + item.find('img').attr('src') + ')', 
-				backgroundSize:'cover',
-				backgroundPosition: 'center center'
-			});
-		});
+		var albumItems = albumWidget.getElementsByClassName('album-images__item');
+		var item, i;
+		
+		for (i in albumItems) {
+			item = albumItems[i];
+			item.style.backgroundImage = 'url(' + item.find('img').attr('src') + ')';
+			item.style.backgroundSize = 'cover';
+			item.style.backgroundPosition = 'center center';
+		};
 	}
-	
-
-
-});
+	// end of if ie
+}
 </script>
 </body>
 </html>

@@ -1,8 +1,7 @@
 (function(window, undefined)
 {
-	var isTouchDevice = !!('ontouchstart' in window);
-	var iTouchStartY = 0;
-
+	var _isTouchDevice = !!('ontouchstart' in window);
+	var _body = document.getElementsByTagName('body')[0];
 
 	this.PictureVwr = function(params){
 		this.defaultParams = {
@@ -18,11 +17,13 @@
 		this.image = null;
 	}
 
+	PictureVwr.prototype.destroy = function(){}
+
 	PictureVwr.prototype.view = function(params){
 		// TODO: validate/extend default params
 		this.params = params;
 
-		if (this.modalLayout){
+		if (this.modalLayout) {
 	    	this.image.src = this.params.src;
 	    	this.image.alt = this.params.title;
 	    	this.titleText.innerHTML = this.params.title;
@@ -31,21 +32,21 @@
 			_bindEvents.call(this);
 		}
 
-		$('body').css({ overflow:'hidden' });
+		_body.style.overflow = 'auto';
 
-		$(this.modalLayout).addClass('modal-picture-viewer_visible');
+		_addClass(this.modalLayout, 'modal-picture-viewer_visible');
 
 		PictureVwr.prototype.imageLoaded.call(this);
 	}
 
 
 	PictureVwr.prototype.close = function(params){
-		$(this.modalLayout).removeClass('modal-picture-viewer_visible');
+		_removeClass(this.modalLayout, 'modal-picture-viewer_visible');
 
-		$(this.image).removeAttr('src');
-		$(this.image).removeAttr('style');
+		this.image.removeAttribute('src');
+		this.image.removeAttribute('style');
 
-		$('body').css({ overflow:'auto' });
+		_body.style.overflow = 'auto';
 	}
 
 
@@ -56,21 +57,28 @@
 
 	PictureVwr.prototype.scaleImage = function(){
 		var imgWidth = this.image.naturalWidth,
-		imgHeight = this.image.naturalHeight,
-		vpWidth = $(window).width(),
-		vpHeight = $(window).height(),
-		titleBarHeight = $(this.titleBar).outerHeight()
-		;
+			imgHeight = this.image.naturalHeight,
+			vpWidth = this.getWindowWidth(),
+			vpHeight = this.getWindowHeight(),
+			titleBarHeight = this.titleBar.clientHeight
+			;
 
 		if (imgHeight > vpHeight)
 		{
-			$(this.image).css({
-				maxHeight: (vpHeight - 100) + titleBarHeight + 'px'
-			});
+			this.image.style.maxHeight = (vpHeight - 100) + titleBarHeight + 'px';
+		} else {
+			this.image.removeAttribute('style');
 		}
-		else{
-			$(this.image).removeAttr('style');
-		}
+	}
+
+
+	PictureVwr.prototype.getWindowWidth = function(){
+		return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	}
+
+
+	PictureVwr.prototype.getWindowHeight = function(){
+		return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	}
 
 
@@ -79,6 +87,7 @@
 			this.close();
 		}
 	}
+
 
 	PictureVwr.prototype.keydown = function(e){
 		if (27 === e.keyCode )
@@ -94,20 +103,34 @@
 	 * Private methods
 	 */
 	
-	
-	function _bindEvents(){
+	function _addClass(elem, _className) {
+		if (-1 === elem.className.indexOf(_className)) {
+        	elem.className = [elem.className, _className].join(' ');
+		}
+	}
 
-		$(this.image).on('load.picture-vwr', this.imageLoaded.bind(this));
-		$(this.image).on('click.picture-vwr', this.close.bind(this));
-		$(window).on('resize.picture-vwr', this.scaleImage.bind(this));
-		//$(window).on('touchstart', this.touchstart.bind(this));
-		$(window).on('touchmove.picture-vwr', this.touchstart.bind(this));
-		
-		$(window).on('keydown.picture-vwr', this.keydown.bind(this));
+	function _removeClass(elem, _className) {
+		var newClasses = [],
+			i,
+        	classes = elem.className.split(" ");
+
+        for (i = 0; i < classes.length; i++) {
+            if (classes[i] !== _className) {
+                newClasses.push(classes[i]);
+            }
+        }
+        elem.className = newClasses.join(' ');
+	}
+
+	function _bindEvents(){
+		this.image.addEventListener('load', this.imageLoaded.bind(this));
+		this.image.addEventListener('click', this.close.bind(this));
+		window.addEventListener('resize', this.scaleImage.bind(this));
+		window.addEventListener('touchmove', this.touchstart.bind(this));
+		window.addEventListener('keydown', this.keydown.bind(this));
 	}
 
 	function _build(){
-
 	    // Layout
 	    this.modalLayout = document.createElement('div');
 	    this.modalLayout.className = 'modal-picture-viewer';
