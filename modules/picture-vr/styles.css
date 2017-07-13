@@ -4,6 +4,8 @@
 
 .modal-picture-viewer{
     display: none;
+    
+    overflow: hidden;
 
     -webkit-flex-direction: column; /* Safari 6.1+ */
     flex-direction: column;
