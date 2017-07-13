@@ -36,9 +36,7 @@
 		}
 
 		_body.style.overflow = 'hidden';
-		console.log(_body.style.width);
 		_body.style.width = _bodyPrevWidth+'px';
-		console.log(_bodyPrevWidth);
 
 		_addClass(this.modalLayout, 'modal-picture-viewer_visible');
 		_addClass(this.imagePlaceholder, 'modal-picture-viewer__picture_loading');
