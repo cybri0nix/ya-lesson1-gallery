@@ -91,7 +91,8 @@
 
 
 	PictureVwr.prototype.onImageLoadedHandler = function() {
-		if (-1 === this.modalLayout.className.split(' ').indexOf('modal-picture-viewer_visible')) {
+		if (-1 === this.modalLayout.className.split(' ').indexOf('modal-picture-viewer_visible')
+			&& -1 === this.imagePlaceholder.className.split(' ').indexOf('modal-picture-viewer__picture_loading')) {
 			return false;
 		}
 		if (-1 === _imagesLoaded.indexOf(this.image.src)) {
